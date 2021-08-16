@@ -3,9 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.31410.357
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Converter.View", "Converter\Converter.View.csproj", "{5959A6B6-573C-4658-A8AC-2C1A0BD35BA3}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Converter.View", "Converter\Converter.View.csproj", "{5959A6B6-573C-4658-A8AC-2C1A0BD35BA3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Converter.Core", "Converter.Core\Converter.Core.csproj", "{2826DAF9-C95B-46C5-B972-49F6EFB6DCBB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Converter.Core", "Converter.Core\Converter.Core.csproj", "{2826DAF9-C95B-46C5-B972-49F6EFB6DCBB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Converter.Infostructure", "Converter.Infostructure\Converter.Infostructure.csproj", "{BC8EBF2B-C969-4904-BFDC-74E3E1E70229}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Converter.BusinnesLogic", "Converter.BusinnesLogic\Converter.BusinnesLogic.csproj", "{957B8A37-B9AC-42D4-BA2B-C5D19F8CF061}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +25,14 @@ Global
 		{2826DAF9-C95B-46C5-B972-49F6EFB6DCBB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2826DAF9-C95B-46C5-B972-49F6EFB6DCBB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2826DAF9-C95B-46C5-B972-49F6EFB6DCBB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC8EBF2B-C969-4904-BFDC-74E3E1E70229}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC8EBF2B-C969-4904-BFDC-74E3E1E70229}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC8EBF2B-C969-4904-BFDC-74E3E1E70229}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC8EBF2B-C969-4904-BFDC-74E3E1E70229}.Release|Any CPU.Build.0 = Release|Any CPU
+		{957B8A37-B9AC-42D4-BA2B-C5D19F8CF061}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{957B8A37-B9AC-42D4-BA2B-C5D19F8CF061}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{957B8A37-B9AC-42D4-BA2B-C5D19F8CF061}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{957B8A37-B9AC-42D4-BA2B-C5D19F8CF061}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

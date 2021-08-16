@@ -1,6 +1,8 @@
+using Converter.Infostructure.DataContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,7 +25,10 @@ namespace Converter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddRazorPages();
+            services.AddMvc(options => options.EnableEndpointRouting = false);
+            ConfigureDatabases(services, Configuration);
+            services.AddControllers();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -35,22 +40,21 @@ namespace Converter
             }
             else
             {
-                app.UseExceptionHandler("/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.UseStatusCodePagesWithReExecute("/Error/{0}");
             }
 
-            app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseMvcWithDefaultRoute();
 
-            app.UseRouting();
-
-            app.UseAuthorization();
-
-            app.UseEndpoints(endpoints =>
+        }
+        public static void ConfigureDatabases(IServiceCollection services, IConfiguration Configuration)
+        {
+            services.AddDbContext<AppDataContext>(options =>
             {
-                endpoints.MapRazorPages();
+                options.UseSqlServer(Configuration.GetConnectionString("CurrencyString"))
+                .EnableSensitiveDataLogging();
             });
+
         }
     }
 }
