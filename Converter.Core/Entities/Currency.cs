@@ -19,6 +19,6 @@ namespace Converter.Core.Entities
         public int Nominal { get; set; }
         public double Rate { get; set; }
         public float Diff { get; set; }
-        public DataType Date { get; set; }
+        public DateTime Date { get; set; }
     }
 }

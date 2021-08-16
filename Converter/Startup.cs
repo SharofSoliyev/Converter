@@ -2,6 +2,7 @@ using Converter.Infostructure.DataContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -15,6 +16,7 @@ namespace Converter
 {
     public class Startup
     {
+       
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -26,7 +28,11 @@ namespace Converter
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc(options => options.EnableEndpointRouting = false);
+   
             ConfigureDatabases(services, Configuration);
+            
+
+
             services.AddControllers();
 
         }
@@ -42,6 +48,7 @@ namespace Converter
             {
                 app.UseStatusCodePagesWithReExecute("/Error/{0}");
             }
+           
 
             app.UseStaticFiles();
             app.UseMvcWithDefaultRoute();

@@ -1,28 +1,48 @@
-﻿@page
-@model Converter.View.Views.Home.IndexModel
+﻿@model HomeIndexViewModel 
 @{
     ViewBag.Title = "Bosh sahifa";
 }
-@{
-    <h1>Converter</h1>
-}
 
-<div class="d-flex">
+<div class="d-flex ">
+    <div class="d-flex col-md-12">
+        <select id="firstId" class="form-control col-md-6 ">
+            @foreach (var item in Model.CurrencyModels)
+            {
 
-    <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-    </select>
-    <select class="form-select" aria-label="Default select example">
-        <option selected>Open this select menu</option>
-        <option value="1">One</option>
-        <option value="2">Two</option>
-        <option value="3">Three</option>
-    </select>
+
+                <option value="@item.Rate">@item.CcyNm_EN  (@item.CcyNm_RU)</option>
+
+            }
+        </select>
+        <select id="secondId" class="form-control col-md-6">
+            @foreach (var item in Model.CurrencyModels)
+            {
+
+
+            <option value="@item.Rate">@item.CcyNm_EN  (@item.CcyNm_RU)</option>
+
+            }
+        </select>
+    </div>
 </div>
+<div class="card-deck d-flex col-md-12">
+    <input id="firstCurrency" onkeyup="GetVal()"/>
 
+    <input id="secondCurrency" readonly />
+
+
+</div>
+<div class="d-flex">
+    <button class="btn btn-dark w-50 h-50"></button>
+</div>
 <script>
-
+    function GetVal() {
+        const firstRate = $('#firstId').find(":selected").val();
+        const secondRate = $('#secondId').find(":selected").val();
+        const base = $('#firstCurrency').val() * firstRate;
+        const result = (base / secondRate);
+        $('#secondCurrency').val(result);
+        
+        console.log(result);
+   }
 </script>
