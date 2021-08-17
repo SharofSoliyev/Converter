@@ -10,12 +10,13 @@ namespace Converter.Infostructure.DataContext
 {
     public class AppDataContext : DbContext
     {
-        public AppDataContext(DbContextOptions options) : base(options)
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-        }
+            optionsBuilder.UseSqlite(@"Data source=Currency.db");
 
-       public DbSet<Currency> Currencies { get; set; }
-       public DbSet<CurrencyConverter> CurrencyConverters { get; set; }
+
+        }
+        public DbSet<CurrencyConverter> CurrencyConverters { get; set; }
     }
 
 }

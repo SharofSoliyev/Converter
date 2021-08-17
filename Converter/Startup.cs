@@ -1,3 +1,4 @@
+using Converter.BusinnesLogic.Mappers;
 using Converter.Infostructure.DataContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -12,6 +13,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
+using Converter.Infostructure.Repository;
+using Converter.BusinnesLogic.Interfaces;
+using Converter.BusinnesLogic.Services;
 
 namespace Converter
 {
@@ -28,6 +33,7 @@ namespace Converter
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            
             services.AddMvc(options => options.EnableEndpointRouting = false)
                 .AddJsonOptions(o =>
                 {
@@ -38,9 +44,8 @@ namespace Converter
 
 
             ConfigureDatabases(services, Configuration);
-
-           
-
+            // Infrastructure Layer
+            
             services.AddControllers();
 
 
@@ -65,11 +70,14 @@ namespace Converter
         }
         public static void ConfigureDatabases(IServiceCollection services, IConfiguration Configuration)
         {
-            services.AddDbContext<AppDataContext>(options =>
-            {
-                options.UseSqlServer(Configuration.GetConnectionString("CurrencyString"))
-                .EnableSensitiveDataLogging();
-            });
+
+            services.AddDbContext<AppDataContext>();
+            services.AddDatabaseDeveloperPageExceptionFilter();
+            services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+            services.AddScoped<ICurrencyConverterService, CurrencyConverterService>();
+            services.AddAutoMapper(typeof(IEMapper));
+
+
 
         }
     }

@@ -12,7 +12,7 @@ namespace Converter.BusinnesLogic.Models
         public string SecondCurrency { get; set; }
         public double FirstSum { get; set; }
         public double SecondSum { get; set; }
-        public DateTime Date { get; set; }
+        public string Date { get; set; }
 
     }
 }

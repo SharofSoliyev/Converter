@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace Converter.Infostructure.Repository
 {
-    public interface IRepository<T> where T : Entity<int>
+    public interface IRepository<T> where T : EntityBase
     {
         Task<T> AddAsync(T entity);
         Task UpdateAsync(T entity);
@@ -30,7 +30,7 @@ namespace Converter.Infostructure.Repository
         IQueryable<T> GetAllByPage(int page, int limit, Expression<Func<T, bool>> predicate, Func<IQueryable<T>, IOrderedQueryable<T>> orderBy, bool disableTracking = true);
 
     }
-    public class Repository<T> : IRepository<T> where T : Entity<int>
+    public class Repository<T> : IRepository<T> where T : EntityBase
     {
         protected readonly AppDataContext _dbContext;
 
@@ -43,10 +43,10 @@ namespace Converter.Infostructure.Repository
 
         public async Task<T> AddAsync(T entity)
         {
-            _dbContext.Entry(entity).Property("CreatedAt").CurrentValue = DateTime.UtcNow;
+           
             _dbContext.Set<T>().Add(entity);
             await _dbContext.SaveChangesAsync();
-            return entity;
+           return entity;
         }
 
         public async Task UpdateAsync(T entity)

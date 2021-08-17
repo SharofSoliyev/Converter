@@ -1,66 +1,107 @@
-﻿@model HomeIndexViewModel 
+﻿@model HomeIndexViewModel
 @{
     ViewBag.Title = "Bosh sahifa";
 }
 
-<div class="d-flex ">
-    <div class="d-flex col-md-12">
-        <select id="firstId" class="form-control col-md-6 ">
-            @foreach (var item in Model.CurrencyModels)
-            {
+<div class="card card-secondary">
+    <div class="d-flex justify-content-center">
+        <div class="d-flex ">
+            <select id="firstId" class="custom-select input-select mr-2 mt-2">
+                @foreach (var item in Model.CurrencyModels)
+                {
 
 
-                <option id="firstCurrencySelect" value="@item.Rate">@item.CcyNm_EN  (@item.CcyNm_RU)</option>
+                    <option id="firstCurrencySelect" value="@item.Rate">@item.CcyNm_EN  (@item.CcyNm_RU)</option>
 
-            }
-        </select>
-        <select id="secondId" class="form-control col-md-6">
-            @foreach (var item in Model.CurrencyModels)
-            {
+                }
+            </select>
+            <select id="secondId" class="custom-select input-select ml-2 mt-2">
+                @foreach (var item in Model.CurrencyModels)
+                {
 
 
-            <option id="secondCurrencySelect" ondurationchange="GetVal()" value="@item.Rate">@item.CcyNm_EN  (@item.CcyNm_RU)</option>
+                    <option id="secondCurrencySelect" ondurationchange="GetVal()" value="@item.Rate">@item.CcyNm_EN  (@item.CcyNm_RU)</option>
 
-            }
-        </select>
+                }
+            </select>
+        </div>
+    </div>
+    <div class="card-deck d-flex justify-content-center">
+        <input id="firstCurrency" onkeyup="GetVal()" class="custom-select mr-2 mt-2 input-select" />
+
+        <input id="secondCurrency" readonly class="custom-select ml-2 mt-2 input-select" />
+
+
+    </div>
+    <div class="d-flex d-flex justify-content-center mt-3">
+        <button class="btn btn-block btn-primary btn-lg" onclick="SetVal()"> Конвертация</button>
     </div>
 </div>
-<div class="card-deck d-flex col-md-12">
-    <input id="firstCurrency" onkeyup="GetVal()"/>
+<div class="card card-secondary mt-5">
+    <div class="card">
 
-    <input id="secondCurrency" readonly />
+        <!-- /.card-header -->
+        <div class="card-body p-0">
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>Исходная валюта</th>
+                        <th>Целевая валюта</th>
+                        <th>Исходная сумма</th>
+                        <th>Получаемая сумма</th>
+                        <th>Дата</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model.ConverterModels)
+                    {
+                    <tr>
+
+                        <td>@item.FirstCurrency</td>
+                        <td>@item.SecondCurrency</td>
+                        <td>@item.FirstSum</td>
+                        <td>@item.SecondSum</td>
+                        <td>@item.Date</td>
+                    </tr>
+                    }
 
 
+
+
+                </tbody>
+            </table>
+        </div>
+        <!-- /.card-body -->
+    </div>
 </div>
-<div class="d-flex">
-    <button class="btn btn-dark w-50 h-50" onclick="SetVal()"></button>
-</div>
-<script>
+    <script>
 
-  
-    function GetVal() {
-        console.log("salom");
-        const result = (($('#firstCurrency').val()) * ($('#firstId').find(":selected").val()) / ($('#secondId').find(":selected").val()));
-        $('#secondCurrency').val(result);    
-    }
-    function SetVal() {
-        const firstRate = $('#firstId').find(":selected").val();
-        const secondRate = $('#secondId').find(":selected").val();
-        const base = $('#firstCurrency').val() * firstRate;
-        const result = (base / secondRate);
- 
-        var data = {};
+
+        function GetVal() {
+            const result = (($('#firstCurrency').val()) * ($('#firstId').find(":selected").val()) / ($('#secondId').find(":selected").val()));
+            $('#secondCurrency').val(result);
+        }
+        function SetVal() {
+            const firstRate = $('#firstId').find(":selected").val();
+            const secondRate = $('#secondId').find(":selected").val();
+            const base = $('#firstCurrency').val() * firstRate;
+            const result = (base / secondRate);
+
+            var data = {};
             $.ajax({
                 type: "POST",
                 url: "/Home/AjaxMethod",
                 data: {
-                    FirstCurrency: $('#firstCurrencySelect').text(),
-                    SecondCurrency: $('#secondCurrencySelect').text(),
+                    FirstCurrency: $('#firstId').find(":selected").text(),
+                    SecondCurrency: $('#secondId').find(":selected").text(),
                     FirstSum: $('#firstId').find(":selected").val(),
                     SecondSum: result
                 },
                 success: function (data) {
-                    
+                    $('#firstCurrency').val ("");
+                    $('#secondCurrency').val("");
+                    window.location.reload();
                 },
                 failure: function (response) {
                     alert(response.responseText);
@@ -70,8 +111,8 @@
                 }
             });
 
-        
-    }
+
+        }
 
 
-</script>
+    </script>

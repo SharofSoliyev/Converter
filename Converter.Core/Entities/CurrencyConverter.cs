@@ -7,17 +7,15 @@ using System.Threading.Tasks;
 
 namespace Converter.Core.Entities
 {
-    public class CurrencyConverter: Entity<int>
+    public class CurrencyConverter: EntityBase
     {
-        public int FirstCurrencyId { get; set; }
-        public int SecondCurrencyId { get; set; }
-
+        public string FirstCurrency { get; set; }
+        public string SecondCurrency { get; set; }
         public double FirstSum { get; set; }
-
         public double SecondSum { get; set; }
+        public string Date { get; set; }
 
-        public DateTime Data { get; set; }
 
-        public Currency Currency { get; set; }
+
     }
 }
