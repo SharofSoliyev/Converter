@@ -10,7 +10,7 @@
             {
 
 
-                <option value="@item.Rate">@item.CcyNm_EN  (@item.CcyNm_RU)</option>
+                <option id="firstCurrencySelect" value="@item.Rate">@item.CcyNm_EN  (@item.CcyNm_RU)</option>
 
             }
         </select>
@@ -19,7 +19,7 @@
             {
 
 
-            <option value="@item.Rate">@item.CcyNm_EN  (@item.CcyNm_RU)</option>
+            <option id="secondCurrencySelect" ondurationchange="GetVal()" value="@item.Rate">@item.CcyNm_EN  (@item.CcyNm_RU)</option>
 
             }
         </select>
@@ -33,16 +33,45 @@
 
 </div>
 <div class="d-flex">
-    <button class="btn btn-dark w-50 h-50"></button>
+    <button class="btn btn-dark w-50 h-50" onclick="SetVal()"></button>
 </div>
 <script>
+
+  
     function GetVal() {
+        console.log("salom");
+        const result = (($('#firstCurrency').val()) * ($('#firstId').find(":selected").val()) / ($('#secondId').find(":selected").val()));
+        $('#secondCurrency').val(result);    
+    }
+    function SetVal() {
         const firstRate = $('#firstId').find(":selected").val();
         const secondRate = $('#secondId').find(":selected").val();
         const base = $('#firstCurrency').val() * firstRate;
         const result = (base / secondRate);
-        $('#secondCurrency').val(result);
+ 
+        var data = {};
+            $.ajax({
+                type: "POST",
+                url: "/Home/AjaxMethod",
+                data: {
+                    FirstCurrency: $('#firstCurrencySelect').text(),
+                    SecondCurrency: $('#secondCurrencySelect').text(),
+                    FirstSum: $('#firstId').find(":selected").val(),
+                    SecondSum: result
+                },
+                success: function (data) {
+                    
+                },
+                failure: function (response) {
+                    alert(response.responseText);
+                },
+                error: function (response) {
+                    alert(response.responseText);
+                }
+            });
+
         
-        console.log(result);
-   }
+    }
+
+
 </script>

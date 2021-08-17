@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+
 namespace Converter.View.Controllers
 {
     public class HomeController : Controller
@@ -31,9 +32,18 @@ namespace Converter.View.Controllers
             return View(viewModel);
          }
 
-        
-       
+        [HttpPost]
+        public int AjaxMethod(ConverterModel currency)
+        {
+            throw new Exception();
+        }
 
+
+    }
+    public class RelateViewModel
+    {
+        public int PrimaryEntityId { get; set; }
+        public int RelatedEntityId { get; set; }
     }
 
 }

@@ -9,13 +9,6 @@ namespace Converter.View.ViewModels
     public class HomeIndexViewModel
     {
         public IEnumerable<CurrencyModel> CurrencyModels { get; set; }
-        public int FirstId { get; set; }
-
-        public int SecondId { get; set; }
-        
-        public void Get ()
-        {
-
-        }
+        public ConverterModel ConverterModel { get; set; }
     }
 }
